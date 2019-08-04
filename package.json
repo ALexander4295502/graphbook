@@ -1,0 +1,12 @@
+{
+  "name": "graphbook",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ALexander4295502/graphbook.git",
+  "author": "Zheng Yuan <yuanzheng@sportdex.io>",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
