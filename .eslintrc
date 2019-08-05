@@ -9,5 +9,6 @@
     "react/jsx-filename-extension": "off",
     "react/prefer-stateless-function": "off",
     "prettier/prettier": "error"
-  }
+  },
+  "parser": "babel-eslint"
 }
