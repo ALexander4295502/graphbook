@@ -1,10 +1,18 @@
+import path from 'path';
 import { ApolloServer } from 'apollo-server-express';
 import { makeExecutableSchema } from 'graphql-tools';
+import { importSchema } from 'graphql-import';
 import Resolvers from './resolvers';
-import Schema from './schema';
 
 const executableSchema = makeExecutableSchema({
-  typeDefs: Schema,
+  typeDefs: `
+    ${importSchema(path.join(__dirname, 'schema.graphql'))}
+
+    schema {
+      query: RootQuery
+      mutation: RootMutation
+    }
+  `,
   resolvers: Resolvers,
 });
 
