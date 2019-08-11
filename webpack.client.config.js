@@ -1,18 +1,17 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // eslint-disable-line import/no-extraneous-dependencies
 
 const buildDirectory = 'dist';
 const outputDirectory = `${buildDirectory}/client`;
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: './src/client/index.js',
   output: {
     path: path.join(__dirname, outputDirectory),
     filename: 'bundle.js',
   },
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {

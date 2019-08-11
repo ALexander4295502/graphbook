@@ -63,3 +63,4 @@ typings/
 yarn.lock
 .vscode
 dist
+stats.json
