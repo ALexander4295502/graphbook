@@ -64,3 +64,5 @@ yarn.lock
 .vscode
 dist
 stats.json
+combined.log
+error.log

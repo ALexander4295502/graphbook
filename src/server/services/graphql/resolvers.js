@@ -1,3 +1,5 @@
+import logger from '../../helpers/logger';
+
 const fakePosts = [
   {
     id: 1,
@@ -18,6 +20,10 @@ const fakePosts = [
 const resolvers = {
   RootQuery: {
     posts(root, args, context) {
+      logger.log({
+        level: 'info',
+        message: 'Fetch post success',
+      });
       return fakePosts;
     },
   },
