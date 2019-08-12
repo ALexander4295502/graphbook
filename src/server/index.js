@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import compress from 'compression';
 
+import db from './database';
 import services from './services';
 
 // Express Setup
