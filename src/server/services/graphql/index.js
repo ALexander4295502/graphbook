@@ -11,7 +11,7 @@ export default utils => {
   
       schema {
         query: RootQuery
-        mutation: Rootm
+        mutation: RootMutation
       }
     `,
     resolvers: Resolvers.call(utils),

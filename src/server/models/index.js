@@ -28,4 +28,6 @@ export default sequelize => {
       db[modelName].associate(db);
     }
   });
+
+  return db;
 };

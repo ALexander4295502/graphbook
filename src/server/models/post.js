@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     {},
   );
   Post.associate = function(models) {
-    Post.belongTo(models.User);
+    Post.belongsTo(models.User);
   };
   return Post;
 };
