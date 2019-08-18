@@ -10,5 +10,14 @@
     "react/prefer-stateless-function": "off",
     "prettier/prettier": "error"
   },
-  "parser": "babel-eslint"
+  "parser": "babel-eslint",
+  "overrides": [
+    {
+      "files": ["src/server/migrations/*.js", "src/server/seeders/*.js"],
+      "rules": {
+        "strict": "off",
+        "lines-around-directive": "off"
+      }
+    }
+  ]
 }

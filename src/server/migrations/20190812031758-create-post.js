@@ -1,5 +1,3 @@
-/* eslint-disable strict */
-/* eslint-disable lines-around-directive */
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
