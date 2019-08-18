@@ -1,6 +1,6 @@
-// Sequalize db migrate doesn't support import syntax here
-// Remove below when execute
-import CONFIG from '../../../config.json';
+// Sequalize db migrate doesn't support import(ES6) syntax here
+// using require instead
+const CONFIG = require('../../../config.json');
 
 module.exports = {
   development: {

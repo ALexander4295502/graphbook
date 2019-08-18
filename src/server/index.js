@@ -5,11 +5,17 @@ import cors from 'cors';
 import compress from 'compression';
 
 import db from './database';
-import services from './services';
+import servicesLoader from './services';
 
 // Express Setup
 const app = express();
 const root = path.join(__dirname, '../../');
+
+// Create global database instance
+const utils = {
+  db,
+};
+const services = servicesLoader(utils);
 
 // Express Helmet(production)
 if (process.env.NODE_ENV === 'development') {

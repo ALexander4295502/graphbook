@@ -41,4 +41,6 @@ const resolvers = {
   },
 };
 
-export default resolvers;
+export default function resolver() {
+  return resolvers;
+}

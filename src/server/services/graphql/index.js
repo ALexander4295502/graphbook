@@ -4,21 +4,23 @@ import { makeExecutableSchema } from 'graphql-tools';
 import { importSchema } from 'graphql-import';
 import Resolvers from './resolvers';
 
-const executableSchema = makeExecutableSchema({
-  typeDefs: `
-    ${importSchema(path.join(__dirname, 'schema.graphql'))}
+export default utils => {
+  const executableSchema = makeExecutableSchema({
+    typeDefs: `
+      ${importSchema(path.join(__dirname, 'schema.graphql'))}
+  
+      schema {
+        query: RootQuery
+        mutation: Rootm
+      }
+    `,
+    resolvers: Resolvers.call(utils),
+  });
 
-    schema {
-      query: RootQuery
-      mutation: RootMutation
-    }
-  `,
-  resolvers: Resolvers,
-});
+  const server = new ApolloServer({
+    schema: executableSchema,
+    context: ({ req }) => req,
+  });
 
-const server = new ApolloServer({
-  schema: executableSchema,
-  context: ({ req }) => req,
-});
-
-export default server;
+  return server;
+};
