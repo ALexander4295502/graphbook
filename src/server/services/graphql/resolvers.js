@@ -4,6 +4,12 @@ const { db } = this;
 const { Post } = db.models;
 
 const resolvers = {
+  Post: {
+    user(post) {
+      return post.getUser();
+    },
+  },
+
   RootQuery: {
     posts() {
       logger.log({
@@ -18,6 +24,10 @@ const resolvers = {
 
   RootMutation: {
     addPost(root, { post, user }) {
+      logger.log({
+        level: 'info',
+        message: 'Create post success',
+      });
       const postObject = {
         ...post,
         user,
