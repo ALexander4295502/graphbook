@@ -1,21 +1,7 @@
 import logger from '../../helpers/logger';
 
-const fakePosts = [
-  {
-    id: 1,
-    text: 'Lorem ipsum',
-    user: {
-      username: 'Test User 1',
-    },
-  },
-  {
-    id: 2,
-    text: 'Lorem ipsum',
-    user: {
-      username: 'Test User 2',
-    },
-  },
-];
+const { db } = this;
+const { Post } = db.models;
 
 const resolvers = {
   RootQuery: {
@@ -24,7 +10,9 @@ const resolvers = {
         level: 'info',
         message: 'Fetch post success',
       });
-      return fakePosts;
+      return Post.findAll({
+        order: [['createdAt', 'DESC']],
+      });
     },
   },
 

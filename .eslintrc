@@ -16,7 +16,8 @@
       "files": ["src/server/migrations/*.js", "src/server/seeders/*.js"],
       "rules": {
         "strict": "off",
-        "lines-around-directive": "off"
+        "lines-around-directive": "off",
+        "no-unused-vars": "off"
       }
     }
   ]
