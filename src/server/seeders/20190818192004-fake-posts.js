@@ -1,7 +1,8 @@
+/* eslint-disable strict */
+/* eslint-disable lines-around-directive */
 'use strict';
-
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: queryInterface => {
     return queryInterface.bulkInsert('Posts', [
       {
         text: 'Lorem ipsum 1',
@@ -16,7 +17,7 @@ module.exports = {
     ]);
   },
 
-  down: (queryInterface, Sequelize) => {
+  down: queryInterface => {
     return queryInterface.bulkDelete('Posts', null, {});
   },
 };

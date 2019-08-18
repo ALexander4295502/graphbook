@@ -1,3 +1,5 @@
+/* eslint-disable strict */
+/* eslint-disable lines-around-directive */
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -21,7 +23,7 @@ module.exports = {
       },
     });
   },
-  down: (queryInterface, Sequelize) => {
+  down: queryInterface => {
     return queryInterface.dropTable('Posts');
   },
 };

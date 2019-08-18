@@ -19,7 +19,7 @@ const fakePosts = [
 
 const resolvers = {
   RootQuery: {
-    posts(root, args, context) {
+    posts() {
       logger.log({
         level: 'info',
         message: 'Fetch post success',
@@ -29,7 +29,7 @@ const resolvers = {
   },
 
   RootMutation: {
-    addPost(root, { post, user }, context) {
+    addPost(root, { post, user }) {
       const postObject = {
         ...post,
         user,
