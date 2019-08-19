@@ -40,6 +40,20 @@ export default function resolver() {
         });
       },
 
+      chat(root, { chatId }) {
+        return Chat.findByPk(chatId, {
+          include: [
+            {
+              model: User,
+              required: true,
+            },
+            {
+              model: Message,
+            },
+          ],
+        });
+      },
+
       chats() {
         return User.findAll().then(users => {
           if (!users.length) {
