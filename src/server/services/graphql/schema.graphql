@@ -40,4 +40,5 @@ type RootQuery {
 
 type RootMutation {
   addPost(post: PostInput!): Post
+  addChat(chat: ChatInput!): Chat
 }

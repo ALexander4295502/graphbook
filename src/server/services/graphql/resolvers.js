@@ -95,6 +95,18 @@ export default function resolver() {
           });
         });
       },
+
+      addChat(root, { chat }) {
+        logger({
+          level: 'info',
+          message: 'Message was created',
+        });
+        return Chat.create().then(newChat => {
+          return Promise.all([newChat.setUsers(chat.users)]).then(() => {
+            return newChat;
+          });
+        });
+      },
     },
   };
 
