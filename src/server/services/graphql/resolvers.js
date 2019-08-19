@@ -2,12 +2,30 @@ import logger from '../../helpers/logger';
 
 export default function resolver() {
   const { db } = this;
-  const { Post, User } = db.models;
+  const { Post, User, Chat, Message } = db.models;
 
   const resolvers = {
     Post: {
       user(post) {
         return post.getUser();
+      },
+    },
+
+    Message: {
+      user(message) {
+        return message.getUser();
+      },
+      chat(message) {
+        return message.getChat();
+      },
+    },
+
+    Chat: {
+      messages(chat) {
+        return chat.getMessages({ order: [['id', 'ASC']] });
+      },
+      users(chat) {
+        return chat.getUsers();
       },
     },
 
@@ -19,6 +37,28 @@ export default function resolver() {
         });
         return Post.findAll({
           order: [['createdAt', 'DESC']],
+        });
+      },
+
+      chats() {
+        return User.findAll().then(users => {
+          if (!users.length) {
+            return [];
+          }
+
+          const usersRow = users[0];
+          return Chat.findAll({
+            include: [
+              {
+                model: User,
+                required: true,
+                through: { where: { userId: usersRow.id } },
+              },
+              {
+                model: Message,
+              },
+            ],
+          });
         });
       },
     },

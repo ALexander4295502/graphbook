@@ -1,16 +1,26 @@
+type User {
+  id: Int
+  avatar: String
+  username: String
+}
+
 type Post {
   id: Int
   text: String
   user: User
 }
 
-type RootQuery {
-  posts: [Post]
+type Message {
+  id: Int
+  text: String
+  chat: Chat
+  user: User
 }
 
-type User {
-  avatar: String
-  username: String
+type Chat {
+  id: Int
+  messages: [Message]
+  users: [User]
 }
 
 input PostInput {
@@ -20,6 +30,11 @@ input PostInput {
 input UserInput {
   username: String!
   avatar: String!
+}
+
+type RootQuery {
+  posts: [Post]
+  chats: [Chat]
 }
 
 type RootMutation {
