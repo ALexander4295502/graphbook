@@ -97,7 +97,7 @@ export default function resolver() {
       },
 
       addChat(root, { chat }) {
-        logger({
+        logger.log({
           level: 'info',
           message: 'Message was created',
         });
