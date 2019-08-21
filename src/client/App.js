@@ -4,6 +4,8 @@ import { Helmet } from 'react-helmet';
 import '../../assets/css/style.css';
 import { USER_AVATAR_URL_PRESET } from './utils/Constant';
 
+import client from './apollo';
+
 const fakePosts = [
   {
     id: 1,
