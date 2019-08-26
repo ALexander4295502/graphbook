@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 
 import { generateAvatarIdFromUsername } from '../utils/Helpers';
 
@@ -62,23 +62,48 @@ export default class Chats extends Component {
   }
 
   openChat = id => {
-    let { openChats } = this.state;
+    let { openChats, textInputs } = this.state;
     openChats = openChats.slice();
+    textInputs = Object.assign({}, textInputs);
     if (openChats.indexOf(id) === -1) {
       if (openChats.length > 2) {
         openChats = openChats.slice(1);
       }
       openChats.push(id);
+      textInputs[id] = '';
       this.setState({ openChats });
     }
   };
 
   closeChat = id => {
-    let { openChats } = this.state;
+    let { openChats, textInputs } = this.state;
     openChats = openChats.slice();
+    textInputs = Object.assign({}, textInputs);
     const index = openChats.indexOf(id);
     openChats.splice(index, 1);
+    delete textInputs[id];
     this.setState({ openChats });
+  };
+
+  onChangeChatInput = (event, id) => {
+    event.preventDefault();
+    let { textInputs } = this.state;
+    textInputs = Object.assign({}, textInputs);
+    textInputs[id] = event.target.value;
+    this.setState({ textInputs });
+  };
+
+  handleKeyPress = (event, id, addMessage) => {
+    let { textInputs } = this.state;
+    textInputs = Object.assign({}, textInputs);
+    if (event.key === 'Enter' && textInputs[id].length) {
+      addMessage({
+        variables: { message: { text: textInputs[id], chatId: id } },
+      }).then(() => {
+        textInputs[id] = '';
+        this.setState({ textInputs });
+      });
+    }
   };
 
   usernamesToString = users => {
@@ -98,7 +123,7 @@ export default class Chats extends Component {
   };
 
   render() {
-    const { openChats } = this.state;
+    const { openChats, textInputs } = this.state;
 
     return (
       <div className="wrapper">
@@ -173,6 +198,35 @@ export default class Chats extends Component {
                         </div>
                       ))}
                     </div>
+                    <Mutation
+                      update={(store, { data: { addMessage } }) => {
+                        const res = store.readQuery({
+                          query: GET_CHAT,
+                          variables: { chatId: chat.id },
+                        });
+                        res.chat.messages.push(addMessage);
+                        store.writeQuery({
+                          query: GET_CHAT,
+                          variables: { chatId: chat.id },
+                          data: res,
+                        });
+                      }}
+                      mutation={ADD_MESSAGE}
+                    >
+                      {addMessage => (
+                        <div className="input">
+                          <input
+                            value={textInputs[chat.id] || ''}
+                            onChange={event =>
+                              this.onChangeChatInput(event, chat.id)
+                            }
+                            onKeyPress={event =>
+                              this.handleKeyPress(event, chat.id, addMessage)
+                            }
+                          />
+                        </div>
+                      )}
+                    </Mutation>
                   </div>
                 );
               }}
