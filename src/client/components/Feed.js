@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Query, Mutation } from 'react-apollo';
 
-import '../../../assets/css/style.css';
-import { USER_AVATAR_URL_PRESET } from '../utils/Constant';
+import { generateAvatarIdFromUsername } from '../utils/Helpers';
 
 const GET_POSTS = gql`
   {
@@ -39,13 +38,6 @@ export default class Feed extends Component {
       postContent: '',
     };
   }
-
-  generateAvatarIdFromUsername = username => {
-    return username
-      .toLowerCase()
-      .split(' ')
-      .join('_');
-  };
 
   handlePostContentChange = event => {
     this.setState({ postContent: event.target.value });
@@ -135,9 +127,7 @@ export default class Feed extends Component {
                   >
                     <div className="header">
                       <img
-                        src={`${USER_AVATAR_URL_PRESET}/${this.generateAvatarIdFromUsername(
-                          post.user.username,
-                        )}.png`}
+                        src={generateAvatarIdFromUsername(post.user.username)}
                         alt={post.user.username}
                       />
                       <h2>{post.user.username}</h2>

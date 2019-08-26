@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import Feed from './Feed';
+import Chats from './Chats';
 import '../../../assets/css/style.css';
 
 export default class App extends Component {
@@ -15,6 +16,7 @@ export default class App extends Component {
           />
         </Helmet>
         <Feed />
+        <Chats />
       </div>
     );
   }

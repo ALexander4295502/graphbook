@@ -24,6 +24,11 @@ export default function resolver() {
       messages(chat) {
         return chat.getMessages({ order: [['id', 'ASC']] });
       },
+      lastMessage(chat) {
+        return chat
+          .getMessages({ limit: 1, order: [['id', 'DESC']] })
+          .then(messages => messages[0]);
+      },
       users(chat) {
         return chat.getUsers();
       },
